@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
+from newspaper.forms import RedactorCreationForm
 from newspaper.models import (Redactor,
                               Newspaper,
                               Topic)
