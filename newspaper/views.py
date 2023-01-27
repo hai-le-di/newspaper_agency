@@ -34,3 +34,8 @@ class NewspaperListView(generic.ListView):
 class NewspaperDetailView(generic.DetailView):
     model = Newspaper
     paginate_by = 5
+
+
+class TopicListView(generic.ListView):
+    model = Topic
+    paginate_by = 5
