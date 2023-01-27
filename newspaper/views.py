@@ -44,6 +44,11 @@ class NewspaperUpdateView(generic.UpdateView):
     success_url = reverse_lazy("newspaper:newspaper-list")
 
 
+class NewspaperDeleteView(generic.DeleteView):
+    model = Newspaper
+    success_url = reverse_lazy("newspaper:newspaper-list")
+
+
 class TopicListView(generic.ListView):
     model = Topic
     paginate_by = 5
