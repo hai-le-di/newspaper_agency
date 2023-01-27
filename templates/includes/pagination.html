@@ -1,0 +1,14 @@
+{% load query_transform %}
+{% if is_paginated %}
+  <ul>
+    {% if page_obj.has_previous %}
+      <a href="?{% query_transform request page=page_obj.previous_page_number %}" class="btn bg-gradient-light w-auto me-2">previous</a>
+    {% endif %}
+
+    <p class="btn bg-gradient-light w-auto me-2">{{ page_obj.number }} of {{ paginator.num_pages }}</p>
+
+    {% if page_obj.has_next %}
+      <a href="?{% query_transform request page=page_obj.next_page_number %}" class="btn bg-gradient-light w-auto me-2">next</a>
+    {% endif %}
+  </ul>
+{% endif %}
