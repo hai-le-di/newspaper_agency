@@ -11,6 +11,7 @@ from .views import (index,
                     NewspaperUpdateView,
                     NewspaperDeleteView,
                     RedactorExperienceUpdateView,
+                    RedactorDeleteView,
                     )
 
 
@@ -38,6 +39,8 @@ urlpatterns = [
          name="newspaper-delete"),
     path("redactor/<int:pk>/update", RedactorExperienceUpdateView.as_view(),
          name="redactor-update"),
+    path("redactor/<int:pk>/delete/", RedactorDeleteView.as_view(),
+         name="redactor-delete"),
 ]
 
 
