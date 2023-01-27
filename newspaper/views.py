@@ -7,7 +7,8 @@ from django.views import generic
 from newspaper.forms import (RedactorCreationForm,
                              RedactorExperienceUpdateForm,
                              NewspaperSearchForm,
-                             TopicSearchForm)
+                             TopicSearchForm,
+                             RedactorSearchForm)
 from newspaper.models import (Redactor,
                               Newspaper,
                               Topic)
@@ -110,6 +111,27 @@ class TopicCreateView(LoginRequiredMixin, generic.CreateView):
 class RedactorListView(LoginRequiredMixin, generic.ListView):
     model = Redactor
     paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(RedactorListView, self).get_context_data(**kwargs)
+
+        username = self.request.GET.get("username", "")
+
+        context["search_form"] = RedactorSearchForm(initial={
+            "username": username
+        })
+
+        return context
+
+    def get_queryset(self):
+        queryset = Redactor.objects.all()
+        form = RedactorSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return queryset.filter(
+                username__icontains=form.cleaned_data["username"]
+            )
+        return queryset
 
 
 class RedactorDetailView(LoginRequiredMixin, generic.DetailView):
