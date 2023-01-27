@@ -29,3 +29,8 @@ def index(request):
 class NewspaperListView(generic.ListView):
     model = Newspaper
     paginate_by = 10
+
+
+class NewspaperDetailView(generic.DetailView):
+    model = Newspaper
+    paginate_by = 5
