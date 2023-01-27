@@ -35,3 +35,12 @@ class RedactorExperienceUpdateForm(forms.ModelForm):
         model = Redactor
         fields = ["years_of_experience"]
 
+
+class NewspaperForm(forms.ModelForm):
+    publishers = forms.ModelMultipleChoiceField(
+        queryset=Redactor.objects.all(),
+        widget=forms.CheckboxSelectMultiple)
+
+    class Meta:
+        model = Newspaper
+        fields = "__all__"
