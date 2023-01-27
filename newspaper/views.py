@@ -44,3 +44,8 @@ class TopicListView(generic.ListView):
 class TopicDetailView(generic.DetailView):
     model = Topic
     paginate_by = 5
+
+
+class RedactorListView(generic.ListView):
+    model = Redactor
+    paginate_by = 5
