@@ -8,7 +8,8 @@ from newspaper.forms import (RedactorCreationForm,
                              RedactorExperienceUpdateForm,
                              NewspaperSearchForm,
                              TopicSearchForm,
-                             RedactorSearchForm)
+                             RedactorSearchForm,
+                             NewspaperForm)
 from newspaper.models import (Redactor,
                               Newspaper,
                               Topic)
@@ -61,6 +62,12 @@ class NewspaperListView(LoginRequiredMixin, generic.ListView):
 class NewspaperDetailView(LoginRequiredMixin, generic.DetailView):
     model = Newspaper
     paginate_by = 5
+
+
+class NewspaperCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Newspaper
+    form_class = NewspaperForm
+    success_url = reverse_lazy("newspaper:newspaper-list")
 
 
 class NewspaperUpdateView(LoginRequiredMixin, generic.UpdateView):
