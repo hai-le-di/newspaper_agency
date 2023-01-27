@@ -61,3 +61,9 @@ class RedactorListView(generic.ListView):
 class RedactorDetailView(generic.DetailView):
     model = Redactor
     paginate_by = 5
+
+
+class RedactorCreateView(generic.CreateView):
+    model = Redactor
+    form_class = RedactorCreationForm
+    success_url = reverse_lazy("newspaper:redactor-list")
