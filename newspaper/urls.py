@@ -5,6 +5,7 @@ from .views import (index,
                     TopicListView,
                     TopicDetailView,
                     RedactorListView,
+                    RedactorDetailView,
                     )
 
 
@@ -20,6 +21,8 @@ urlpatterns = [
          name="topic-detail"),
     path("redactor/", RedactorListView.as_view(),
          name="redactor-list"),
+    path("redactor/<int:pk>/", RedactorDetailView.as_view(),
+         name="redactor-detail"),
 ]
 
 
