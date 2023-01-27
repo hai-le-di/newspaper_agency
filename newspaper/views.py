@@ -5,7 +5,9 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from newspaper.forms import (RedactorCreationForm,
-                             RedactorExperienceUpdateForm)
+                             RedactorExperienceUpdateForm,
+                             NewspaperSearchForm,
+                             TopicSearchForm)
 from newspaper.models import (Redactor,
                               Newspaper,
                               Topic)
@@ -36,6 +38,24 @@ class NewspaperListView(LoginRequiredMixin, generic.ListView):
     model = Newspaper
     paginate_by = 10
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(NewspaperListView, self).get_context_data(**kwargs)
+        title = self.request.GET.get("title", "")
+        context["search_form"] = NewspaperSearchForm(initial={
+            "title": title
+        })
+        return context
+
+    def get_queryset(self):
+        queryset = Newspaper.objects.all().select_related("topic")
+        form = NewspaperSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return queryset.filter(
+                title__icontains=form.cleaned_data["title"]
+            )
+        return queryset
+
 
 class NewspaperDetailView(LoginRequiredMixin, generic.DetailView):
     model = Newspaper
@@ -56,6 +76,24 @@ class NewspaperDeleteView(LoginRequiredMixin, generic.DeleteView):
 class TopicListView(LoginRequiredMixin, generic.ListView):
     model = Topic
     paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(TopicListView, self).get_context_data(**kwargs)
+        name = self.request.GET.get("name", "")
+        context["search_form"] = TopicSearchForm(initial={
+            "name": name
+        })
+        return context
+
+    def get_queryset(self):
+        queryset = Topic.objects.all()
+        form = TopicSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return queryset.filter(
+                name__icontains=form.cleaned_data["name"]
+            )
+        return queryset
 
 
 class TopicDetailView(LoginRequiredMixin, generic.DetailView):
