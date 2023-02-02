@@ -4,15 +4,19 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from newspaper.forms import (RedactorCreationForm,
-                             RedactorExperienceUpdateForm,
-                             NewspaperSearchForm,
-                             TopicSearchForm,
-                             RedactorSearchForm,
-                             NewspaperForm)
-from newspaper.models import (Redactor,
-                              Newspaper,
-                              Topic)
+from newspaper.forms import (
+    RedactorCreationForm,
+    RedactorExperienceUpdateForm,
+    NewspaperSearchForm,
+    TopicSearchForm,
+    RedactorSearchForm,
+    NewspaperForm
+)
+from newspaper.models import (
+    Redactor,
+    Newspaper,
+    Topic
+)
 
 
 @login_required()
@@ -49,7 +53,7 @@ class NewspaperListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = Newspaper.objects.all().select_related("topic")
+        queryset = Newspaper.objects.select_related("topic")
         form = NewspaperSearchForm(self.request.GET)
 
         if form.is_valid():
