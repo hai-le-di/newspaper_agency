@@ -4,7 +4,7 @@ Project for tracking redactors assigned to newspapers in a newspaper agency.
 
 ## Check it out!
 
-[Newspaper agency project deployed to Heroku](PASTE_LINK_HERE)
+[Newspaper agency project deployed to Render](https://newspaper-agency-jx6a.onrender.com/accounts/login/)
 
 ## Installation
 
