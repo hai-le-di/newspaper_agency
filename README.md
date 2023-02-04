@@ -6,6 +6,9 @@ Project for tracking redactors assigned to newspapers in a newspaper agency.
 
 [Newspaper agency project deployed to Render](https://newspaper-agency-jx6a.onrender.com/accounts/login/)
 
+login: user
+password: test12345
+
 ## Installation
 
 Python3 must be already installed
