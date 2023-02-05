@@ -22,11 +22,6 @@ class ModelsTests(TestCase):
     def test_newspaper_str(self):
         published_date = datetime.now().strftime("%m-%d-%Y, %H:%M:%S")
         topic = Topic.objects.create(name="test")
-        redactor = Redactor.objects.create(username="test",
-                                           password="12345",
-                                           first_name="test first",
-                                           last_name="test last",
-                                           years_of_experience=3)
         newspaper = Newspaper.objects.create(title="test",
                                              content="test content",
                                              published_date=published_date,
