@@ -22,7 +22,7 @@ class RedactorCreationForm(UserCreationForm):
         )
 
 
-class RedactorExperienceUpdateForm(forms.ModelForm):
+class RedactorUpdateForm(forms.ModelForm):
 
     MIN_VALUE = 0
 
@@ -33,7 +33,11 @@ class RedactorExperienceUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Redactor
-        fields = ["years_of_experience"]
+        fields = [
+            "years_of_experience",
+            "first_name",
+            "last_name"
+        ]
 
 
 class NewspaperForm(forms.ModelForm):

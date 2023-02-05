@@ -8,7 +8,7 @@ from django.views import generic
 
 from newspaper.forms import (
     RedactorCreationForm,
-    RedactorExperienceUpdateForm,
+    RedactorUpdateForm,
     NewspaperSearchForm,
     TopicSearchForm,
     RedactorSearchForm,
@@ -159,9 +159,9 @@ class RedactorCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("newspaper:redactor-list")
 
 
-class RedactorExperienceUpdateView(LoginRequiredMixin, generic.UpdateView):
+class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Redactor
-    form_class = RedactorExperienceUpdateForm
+    form_class = RedactorUpdateForm
     success_url = reverse_lazy("newspaper:redactor-list")
 
 
