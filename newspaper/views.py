@@ -1,16 +1,19 @@
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
+
 from newspaper.forms import (
     RedactorCreationForm,
-    RedactorExperienceUpdateForm,
+    RedactorUpdateForm,
     NewspaperSearchForm,
     TopicSearchForm,
     RedactorSearchForm,
-    NewspaperForm
+    NewspaperForm,
+    LoginForm,
 )
 from newspaper.models import (
     Redactor,
@@ -156,12 +159,34 @@ class RedactorCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("newspaper:redactor-list")
 
 
-class RedactorExperienceUpdateView(LoginRequiredMixin, generic.UpdateView):
+class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Redactor
-    form_class = RedactorExperienceUpdateForm
+    form_class = RedactorUpdateForm
     success_url = reverse_lazy("newspaper:redactor-list")
 
 
 class RedactorDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Redactor
     success_url = reverse_lazy("newspaper:redactor-list")
+
+
+def login_view(request):
+    form = LoginForm(request.POST or None)
+
+    msg = None
+
+    if request.method == "POST":
+
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect("/")
+            else:
+                msg = 'Invalid credentials'
+        else:
+            msg = 'Error validating the form'
+
+    return render(request, "registration/login.html", {"form": form, "msg": msg})
