@@ -33,4 +33,5 @@ python manage.py runserver # starts Django Server
 ## Demo
 
 
-![](../../Users/User/OneDrive/Робочий стіл/home-page.png)
+<img width="960" alt="homepage" src="https://user-images.githubusercontent.com/102927189/217591092-0131d4c1-3596-4523-8e3b-9618e9bafa19.png">
+
